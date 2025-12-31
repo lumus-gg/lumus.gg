@@ -116,7 +116,9 @@ function initMouseEffects() {
             const deltaX = (mouseX - orbCenterX) * 0.02;
             const deltaY = (mouseY - orbCenterY) * 0.02;
             
-            orb.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+            // Use CSS custom properties to avoid overriding animations
+            orb.style.setProperty('--mouse-x', `${deltaX}px`);
+            orb.style.setProperty('--mouse-y', `${deltaY}px`);
         }
         requestAnimationFrame(updateOrb);
     }
