@@ -99,12 +99,16 @@ function initSmoothScroll() {
 // Mouse movement effects
 function initMouseEffects() {
     const orb = document.querySelector('.orb');
+    const appCards = document.querySelectorAll('.app-card');
     let mouseX = 0;
     let mouseY = 0;
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        
+        // Create torch light effect following mouse
+        createTorchLight(e.clientX, e.clientY);
     });
 
     function updateOrb() {
@@ -121,6 +125,25 @@ function initMouseEffects() {
             orb.style.setProperty('--mouse-y', `${deltaY}px`);
         }
         requestAnimationFrame(updateOrb);
+    }
+
+    // Torch light effect following mouse
+    function createTorchLight(x, y) {
+        appCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardCenterX = rect.left + rect.width / 2;
+            const cardCenterY = rect.top + rect.height / 2;
+            
+            const distance = Math.sqrt(
+                Math.pow(x - cardCenterX, 2) + Math.pow(y - cardCenterY, 2)
+            );
+            
+            const maxDistance = 300;
+            const intensity = Math.max(0, 1 - distance / maxDistance);
+            
+            card.style.setProperty('--torch-intensity', intensity);
+            card.style.filter = `brightness(${1 + intensity * 0.3}) contrast(${1 + intensity * 0.2})`;
+        });
     }
 
     updateOrb();

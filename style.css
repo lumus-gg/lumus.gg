@@ -22,12 +22,16 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     background: var(--dark-bg);
     color: var(--text-primary);
     overflow-x: hidden;
     min-height: 100vh;
-    background: radial-gradient(ellipse at center, #1a1a1a 0%, var(--dark-bg) 70%);
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(247, 147, 30, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    background-attachment: fixed;
 }
 
 /* Torch Animation */
@@ -118,12 +122,28 @@ body {
 }
 
 .logo-text {
+    font-family: 'Cinzel', serif;
     font-size: 1.5rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     color: var(--text-primary);
     position: relative;
     z-index: 2;
+    text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+}
+
+.logo-torch {
+    position: absolute;
+    top: -5px;
+    right: -25px;
+    font-size: 1.2rem;
+    animation: torchFlicker 2s ease-in-out infinite alternate;
+}
+
+@keyframes torchFlicker {
+    0% { transform: rotate(-5deg) scale(1); }
+    50% { transform: rotate(5deg) scale(1.1); }
+    100% { transform: rotate(-3deg) scale(0.95); }
 }
 
 .logo-glow {
@@ -166,11 +186,13 @@ body {
 }
 
 .hero-title {
+    font-family: 'Cinzel', serif;
     font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 700;
     line-height: 0.9;
     margin-bottom: 2rem;
     overflow: hidden;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .title-line {
@@ -194,11 +216,14 @@ body {
 }
 
 .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.25rem;
     color: var(--text-secondary);
     margin-bottom: 3rem;
     opacity: 0;
     animation: fadeIn 1s ease-out 0.8s forwards;
+    font-style: italic;
+    line-height: 1.6;
 }
 
 @keyframes fadeIn {
@@ -318,6 +343,7 @@ body {
 }
 
 .section-title {
+    font-family: 'Cinzel', serif;
     font-size: 3rem;
     font-weight: 700;
     text-align: center;
@@ -326,22 +352,31 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .apps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .app-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 107, 53, 0.2);
-    border-radius: 20px;
+    background: 
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%),
+        rgba(10, 10, 10, 0.8);
+    border: 2px solid rgba(255, 107, 53, 0.3);
+    border-radius: 15px;
     padding: 2rem;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .app-card::before {
@@ -398,10 +433,12 @@ body {
 }
 
 .app-name {
+    font-family: 'Cinzel', serif;
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
     color: var(--text-primary);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .app-description {
