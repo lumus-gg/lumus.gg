@@ -29,10 +29,8 @@ class Particle {
     draw() {
         const alpha = this.life / this.maxLife;
         this.ctx.save();
-        this.ctx.globalAlpha = alpha * 0.6;
-        this.ctx.fillStyle = '#ff6b35';
-        this.ctx.shadowBlur = 10;
-        this.ctx.shadowColor = '#ff6b35';
+        this.ctx.globalAlpha = alpha * 0.3;
+        this.ctx.fillStyle = '#000000';
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         this.ctx.fill();
@@ -107,8 +105,8 @@ function initMouseEffects() {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
-        // Create torch light effect following mouse
-        createTorchLight(e.clientX, e.clientY);
+        // Create subtle hover effect following mouse
+        createHoverEffect(e.clientX, e.clientY);
     });
 
     function updateOrb() {
@@ -127,8 +125,8 @@ function initMouseEffects() {
         requestAnimationFrame(updateOrb);
     }
 
-    // Torch light effect following mouse
-    function createTorchLight(x, y) {
+    // Subtle hover effect following mouse
+    function createHoverEffect(x, y) {
         appCards.forEach(card => {
             const rect = card.getBoundingClientRect();
             const cardCenterX = rect.left + rect.width / 2;
@@ -138,11 +136,14 @@ function initMouseEffects() {
                 Math.pow(x - cardCenterX, 2) + Math.pow(y - cardCenterY, 2)
             );
             
-            const maxDistance = 300;
+            const maxDistance = 200;
             const intensity = Math.max(0, 1 - distance / maxDistance);
             
-            card.style.setProperty('--torch-intensity', intensity);
-            card.style.filter = `brightness(${1 + intensity * 0.3}) contrast(${1 + intensity * 0.2})`;
+            if (intensity > 0.5) {
+                card.style.transform = `translateY(-2px)`;
+            } else {
+                card.style.transform = `translateY(0px)`;
+            }
         });
     }
 
